@@ -14,11 +14,12 @@ float inputX;
 float inputY;
 float answer;
 int nextNum = 0;
+float lastNum = -1;
 float const e = 2.7183;
+
 LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
 void setup() {
   // put your setup code here, to run once:
-  Serial.println(sine(90));
 }
 
 void loop() {
@@ -27,53 +28,284 @@ void loop() {
   float sensorValue2 = analogRead(A2);
   float sensorValue3 = analogRead(A3);
 
+ 
   if(sensorValue0 > 480 && sensorValue0 < 520){ //PI
     if(readInputX_B){
-      inputX *= PI;
+      
+        if(inputX != 0)
+        inputX *= PI;
+        else
+        inputX = PI;
+        
+      lcd.clear();
       lcd.print(inputX);
+      delay(1000);
     }
     if(readInputY_B){
+      
+      if(inputY != 0)
       inputY *= PI;
+      else
+      inputY = PI;
+      
+      lcd.clear();
       lcd.print(inputY);
+      delay(1000);
     }
+    lastNum = PI;
     
   }
   
   if(sensorValue0 > 650 && sensorValue0 < 690){ //e
     if(readInputX_B){
-      inputX *= e;
+      
+        if(inputX != 0)
+        inputX *= e;
+        else
+        inputX = e;
+        
+      lcd.clear();
       lcd.print(inputX);
+      delay(1000);
     }
     if(readInputY_B){
+      
+      if(inputY != 0)
       inputY *= e;
+      else
+      inputY = e;
+      
+      lcd.clear();
       lcd.print(inputY);
+      delay(1000);
     }
+    lastNum = e;
   }
-  
+  if(sensorValue1 > 200 && sensorValue1 < 299){ //reset
+   lcd.clear();
+   inputX = 0;
+   inputY = 0;
+   readInputX_B = true;
+   readInputY_B = false;
+   nextNum = 0;
+   add_B = false;
+   sub_B = false;
+   multiply_B = false;
+   divide_B = false;
+   cosine_B = false;
+   sine_B = false;
+   factorial_B = false;
+    
+  }
+  if(sensorValue3 > 970 && sensorValue3 < 1000){ //0
+    
+    nextNum++;
+    delay(1000);
+    lastNum = 0;
+  }
+
+if(sensorValue2 > 918 && sensorValue2 < 940){ //1
+    
+    if(readInputX_B){
+      if(inputX>=0)
+      inputX += 1*pow(10,nextNum);
+      if(inputX<0)
+      inputX -= 1*pow(10,nextNum);
+      lcd.clear();
+      lcd.print(inputX);
+       
+    }
+    if(readInputY_B){
+      if(inputY>=0)
+      inputY += 1*pow(10,nextNum);
+      if(inputY<0)
+      inputY -= 1*pow(10,nextNum);
+      lcd.clear();
+      lcd.print(inputY);
+      
+    }
+    delay(500);
+    lastNum = 1;
+    nextNum++;
+    
+  }
+
+  if(sensorValue2 > 880 && sensorValue2 < 915){ //2
+    
+    if(readInputX_B){
+      if(inputX>=0)
+      inputX += 2*pow(10,nextNum);
+      if(inputX<0)
+      inputX -= 2*pow(10,nextNum);
+      lcd.clear();
+      lcd.print(inputX);
+       
+    }
+    if(readInputY_B){
+      if(inputY>=0)
+      inputY += 2*pow(10,nextNum);
+      if(inputY<0)
+      inputY -= 2*pow(10,nextNum);
+      lcd.clear();
+      lcd.print(inputY);
+      
+    }
+    delay(500);
+    lastNum = 2;
+    nextNum++;
+    
+    
+  }
+  if(sensorValue2 > 300 && sensorValue2 < 400){ //3
+    
+   if(readInputX_B){
+      if(inputX>=0)
+      inputX += 3*pow(10,nextNum);
+      if(inputX<0)
+      inputX -= 3*pow(10,nextNum);
+      lcd.clear();
+      lcd.print(inputX);
+       
+    }
+    if(readInputY_B){
+      if(inputY>=0)
+      inputY += 3*pow(10,nextNum);
+      if(inputY<0)
+      inputY -= 3*pow(10,nextNum);
+      lcd.clear();
+      lcd.print(inputY);
+      
+    }
+    delay(500);
+    lastNum = 3;
+    nextNum++;
+    
+  }
+  if(sensorValue1 > 915 && sensorValue1 < 940){ //4
+    
+    if(readInputX_B){
+      if(inputX>=0)
+      inputX += 4*pow(10,nextNum);
+      if(inputX<0)
+      inputX -= 4*pow(10,nextNum);
+      lcd.clear();
+      lcd.print(inputX);
+       
+    }
+    if(readInputY_B){
+      if(inputY>=0)
+      inputY += 4*pow(10,nextNum);
+      if(inputY<0)
+      inputY -= 4*pow(10,nextNum);
+      lcd.clear();
+      lcd.print(inputY);
+      
+    }
+    delay(500);
+    lastNum = 4;
+    nextNum++;
+    
+  }
+
+if(sensorValue1 > 880 && sensorValue1 < 900){ //5
+    
+    if(readInputX_B){
+      if(inputX>=0)
+      inputX += 5*pow(10,nextNum);
+      if(inputX<0)
+      inputX -= 5*pow(10,nextNum);
+      lcd.clear();
+      lcd.print(inputX);
+       
+    }
+    if(readInputY_B){
+      if(inputY>=0)
+      inputY += 5*pow(10,nextNum);
+      if(inputY<0)
+      inputY -= 5*pow(10,nextNum);
+      lcd.clear();
+      lcd.print(inputY);
+      
+    }
+    delay(500);
+    lastNum = 5;
+    nextNum++;
+    
+  }
+
+  if(sensorValue1 > 470 && sensorValue1 < 550){ //6
+    
+    if(readInputX_B){
+      if(inputX>=0)
+      inputX += 6*pow(10,nextNum);
+      if(inputX<0)
+      inputX -= 6*pow(10,nextNum);
+      lcd.clear();
+      lcd.print(inputX);
+       
+    }
+    if(readInputY_B){
+      if(inputY>=0)
+      inputY += 6*pow(10,nextNum);
+      if(inputY<0)
+      inputY -= 6*pow(10,nextNum);
+      lcd.clear();
+      lcd.print(inputY);
+      
+    }
+    delay(500);
+    lastNum = 6;
+    nextNum++;
+    
+    
+  }
   if(sensorValue0 > 990 && sensorValue0 < 1030){ //7
     
     if(readInputX_B){
-      inputX += power(7,nextNum);
+      if(inputX>=0)
+      inputX += 7*pow(10,nextNum);
+      if(inputX<0)
+      inputX -= 7*pow(10,nextNum);
+      lcd.clear();
       lcd.print(inputX);
+       
     }
     if(readInputY_B){
-      inputY += power(7,nextNum);
+      if(inputY>=0)
+      inputY += 7*pow(10,nextNum);
+      if(inputY<0)
+      inputY -= 7*pow(10,nextNum);
+      lcd.clear();
       lcd.print(inputY);
+      
     }
+    delay(500);
+    lastNum = 7;
     nextNum++;
-    
   }
 
 if(sensorValue0 > 30 && sensorValue0 < 60){ //8
     
     if(readInputX_B){
-      inputX += power(8,nextNum);
+      if(inputX>=0)
+      inputX += 8*pow(10,nextNum);
+      if(inputX<0)
+      inputX -= 8*pow(10,nextNum);
+      lcd.clear();
       lcd.print(inputX);
+       
     }
     if(readInputY_B){
-      inputY += power(8,nextNum);
+      if(inputY>=0)
+      inputY += 8*pow(10,nextNum);
+      if(inputY<0)
+      inputY -= 8*pow(10,nextNum);
+      lcd.clear();
       lcd.print(inputY);
+      
     }
+    delay(500);
+    lastNum = 8;
     nextNum++;
     
   }
@@ -81,40 +313,131 @@ if(sensorValue0 > 30 && sensorValue0 < 60){ //8
   if(sensorValue0 > 710 && sensorValue0 < 760){ //9
     
     if(readInputX_B){
-      inputX += power(9,nextNum);
+      if(inputX>=0)
+      inputX += 9*pow(10,nextNum);
+      if(inputX<0)
+      inputX -= 9*pow(10,nextNum);
+      lcd.clear();
+      lcd.print(inputX);
+       
+    }
+    if(readInputY_B){
+      if(inputY>=0)
+      inputY += 9*pow(10,nextNum);
+      if(inputY<0)
+      inputY -= 9*pow(10,nextNum);
+      lcd.clear();
+      lcd.print(inputY);
+      
+    }
+    delay(500);
+    lastNum = 9;
+    nextNum++;
+    
+    
+  }
+  
+/*if(sensorValue0 > 15 && sensorValue0 < 55){ //delete work in progress
+
+    lcd.clear();
+    nextNum--;
+    if(readInputX_B){
+      inputX -= lastNum*pow(10, nextNum);
       lcd.print(inputX);
     }
     if(readInputY_B){
-      inputY += power(9,nextNum);
+      inputY -= lastNum*pow(10, nextNum);
       lcd.print(inputY);
     }
-    nextNum++;
-    
-  }
-
+    delay(1000);
+  }*/
   if(sensorValue0 > 770 && sensorValue0 < 830){ //+
 
     readInputX_B = false;
     readInputY_B = true;
+    add_B = true;
+    nextNum = 0;
     lcd.clear();
     
   }
   if(sensorValue1 > 710 && sensorValue1 < 760){ //sine
+
+      sine_B = true;
+      lcd.clear();
+      lcd.print("sin ");
+      
+    
+  }
+
+  if(sensorValue1 > 945 && sensorValue1 < 965){ //cosine
+    
+     cosine_B = true;
+     lcd.clear();
+     lcd.print("cos ");
+    
+  }
+  if(sensorValue1 >300 && sensorValue1 < 400){
+    lcd.clear();
     
     if(readInputX_B){
-      inputX += power(9,nextNum);
+      inputX *= -1;
       lcd.print(inputX);
     }
     if(readInputY_B){
-      inputY += power(9,nextNum);
+      inputY *= -1;
       lcd.print(inputY);
     }
-    nextNum++;
-    
+    delay(1000);
+
+   
   }
   
 
 
+if(sensorValue3 > 470 && sensorValue3 < 515){ //enter
+      
+      lcd.clear();
+      
+      if(add_B){
+        answer = add(inputX,inputY);
+        lcd.print(answer);
+        add_B = false;
+      }
+      if(sine_B){
+        answer = sine(inputX);
+        lcd.print(answer);
+        sine_B = false;
+      }
+      if(cosine_B){
+        answer = cosine(inputX);
+        lcd.print(answer);
+        cosine_B = false;
+      }
+      if(sub_B){
+        answer = subtract(inputX, inputY);
+        lcd.print(answer);
+        sub_B = false;
+
+      }
+      if(multiply_B){
+        answer = multiply(inputX, inputY);
+        lcd.print(answer);
+        multiply_B = false;
+      }
+      if(divide_B){
+        answer = divide(inputX, inputY);
+        lcd.print(answer);
+        divide_B = false;
+      }
+      if(factorial_B){
+        answer = factorial(inputX);
+      }
+        inputX = answer;
+        inputY = 0;
+        readInputX_B = false;
+        readInputY_B = true;
+                delay(1000);
+  }
 
   
 }
