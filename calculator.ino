@@ -6,6 +6,7 @@ bool multiply_B = false;
 bool divide_B = false;
 bool cosine_B = false;
 bool sine_B = false;
+bool power_B = false;
 bool factorial_B = false;
 bool readInputX_B = true;
 bool readInputY_B = false;
@@ -81,7 +82,7 @@ void loop() {
     }
     lastNum = e;
   }
-  if(sensorValue1 > 200 && sensorValue1 < 299){ //reset
+  if(sensorValue1 > 200 && sensorValue1 < 299){ //clear
    lcd.clear();
    inputX = 0;
    inputY = 0;
@@ -336,21 +337,7 @@ if(sensorValue0 > 30 && sensorValue0 < 60){ //8
     
     
   }
-  
-/*if(sensorValue0 > 15 && sensorValue0 < 55){ //delete work in progress
 
-    lcd.clear();
-    nextNum--;
-    if(readInputX_B){
-      inputX -= lastNum*pow(10, nextNum);
-      lcd.print(inputX);
-    }
-    if(readInputY_B){
-      inputY -= lastNum*pow(10, nextNum);
-      lcd.print(inputY);
-    }
-    delay(1000);
-  }*/
   if(sensorValue0 > 770 && sensorValue0 < 830){ //+
 
     readInputX_B = false;
@@ -358,9 +345,40 @@ if(sensorValue0 > 30 && sensorValue0 < 60){ //8
     add_B = true;
     nextNum = 0;
     lcd.clear();
+    delay(1000);
     
   }
-  if(sensorValue1 > 710 && sensorValue1 < 760){ //sine
+  if(sensorValue2 > 470 && sensorValue2 < 550){ //mult
+
+    readInputX_B = false;
+    readInputY_B = true;
+    multiply_B = true;
+    nextNum = 0;
+    lcd.clear();
+    delay(1000);
+    
+  }
+  if(sensorValue3 > 918 && sensorValue3 < 940){ //sub
+
+    readInputX_B = false;
+    readInputY_B = true;
+    sub_B = true;
+    nextNum = 0;
+    lcd.clear();
+    delay(1000);
+    
+  }
+  if(sensorValue3 > 880 && sensorValue3 < 915){ //divide
+
+    readInputX_B = false;
+    readInputY_B = true;
+    divide_B = true;
+    nextNum = 0;
+    lcd.clear();
+    delay(1000);
+    
+  }
+  if(sensorValue1 > 970 && sensorValue1 < 1000){ //sine
 
       sine_B = true;
       lcd.clear();
@@ -376,7 +394,7 @@ if(sensorValue0 > 30 && sensorValue0 < 60){ //8
      lcd.print("cos ");
     
   }
-  if(sensorValue1 >300 && sensorValue1 < 400){
+  if(sensorValue1 >300 && sensorValue1 < 400){//negative
     lcd.clear();
     
     if(readInputX_B){
@@ -387,9 +405,27 @@ if(sensorValue0 > 30 && sensorValue0 < 60){ //8
       inputY *= -1;
       lcd.print(inputY);
     }
-    delay(1000);
+    delay(500);
 
    
+  }
+  if(sensorValue2 > 945 && sensorValue2 < 965){//pow
+    readInputX_B = false;
+    readInputY_B = true;
+    power_B = true;
+    nextNum = 0;
+    lcd.clear();
+    delay(1000);
+  }
+  
+  if(sensorValue2 > 970 && sensorValue2 < 1000){ //!
+
+    lcd.print("!");
+    
+    factorial_B = true;
+    nextNum = 0;
+    delay(500);
+    
   }
   
 
@@ -431,6 +467,14 @@ if(sensorValue3 > 470 && sensorValue3 < 515){ //enter
       }
       if(factorial_B){
         answer = factorial(inputX);
+        lcd.print(answer);
+        factorial_B = false;
+      }
+      if(power_B){
+        answer = pow(inputX,inputY);
+        lcd.print(answer);
+        power_B = false;
+        
       }
         inputX = answer;
         inputY = 0;
@@ -471,7 +515,7 @@ float multiply(float x, float y){
 
 float subtract(float x, float y){
 
-  answer = x + y;
+  answer = x - y;
   return answer;
 }
 
@@ -482,10 +526,11 @@ float divide(float x, float y){
 }
 
 float factorial(int factorialBase){
-
+  answer = 1;
   while(factorialBase > 0){
   answer*= factorialBase;
   factorialBase--;
+
   }
 
   return answer;
